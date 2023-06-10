@@ -1,0 +1,31 @@
+.login-background {
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background-color: white;
+    box-shadow: 1px 1px 5px #616161;
+    padding: 2rem;
+    border-radius: 1rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: auto auto;
+    gap: 3rem
+}
+
+.side-image {
+    height: 20vh;
+    aspect-ratio: 1;
+}
+
+.form-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    
+}

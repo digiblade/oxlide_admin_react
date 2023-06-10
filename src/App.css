@@ -1,38 +1,124 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
+  display: grid;
   flex-direction: column;
+  transition: grid-template-columns .5s cubic-bezier(0.820, 0.085, 0.395, 0.895);
+  color: black;
+}
+
+aside {
+  background-color: var(--light);
+  color: var(--text-dark);
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  padding: 1rem;
+
+}
+
+.close-icon-with-logo {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  position: fixed;
+  background-color: var(--light-mid);
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  min-height: 4rem;
+  width: 100%;
+
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  padding: 0.4rem;
 }
 
-.App-link {
-  color: #61dafb;
+main {
+  height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.main-section {
+  padding: 1rem;
+  padding-top: 5rem;
+
+  height: 100vh;
+  background-color: var(--light-mid);
+}
+
+.close-button {
+  float: right;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hide-dashboard {
+  /* grid-template-columns: 0 auto; */
+  overflow-y: hidden;
+
+}
+
+
+.drawer-header {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.drawer-header>.profile-name {
+  font-weight: bold;
+}
+
+.list-menu {
+  overflow: auto;
+}
+
+.list-menu>.list-item {
+  padding: 0.6rem;
+  cursor: pointer;
+  border-radius: 0.2em;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.list-menu>.list-item.active {
+  background-color: var(--light-mid);
+  color: var(--text-dark);
+}
+
+.list-menu>.list-item:hover {
+  background-color: var(--light-mid);
+}
+
+@media screen and (max-width : 576px) {
+  .show-dashboard {
+    grid-template-columns: 90% auto;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (min-width : 576px) {
+  .show-dashboard {
+    grid-template-columns: 70% auto;
+  }
+}
+
+@media screen and (min-width : 768px) {
+  .show-dashboard {
+    grid-template-columns: 40% auto;
+  }
+}
+
+@media screen and (min-width : 992px) {
+  .show-dashboard {
+    grid-template-columns: 30% auto;
+  }
+}
+
+@media screen and (min-width : 1200px) {
+  .show-dashboard {
+    grid-template-columns: 20% auto;
   }
 }
