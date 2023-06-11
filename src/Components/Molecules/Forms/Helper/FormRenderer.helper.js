@@ -15,6 +15,9 @@ const formElementComponentSet = (
     helperText,
     placeholder,
     label,
+    required,
+    error,
+    errorText,
   } = fieldDetails;
   let value = defaultValue;
   if (crmValues[id]) {
@@ -24,6 +27,7 @@ const formElementComponentSet = (
     case fieldTypes.TEXT_INPUT:
       return (
         <A_TextInput
+          key={id}
           type={subType}
           value={value}
           id={id}
@@ -31,6 +35,9 @@ const formElementComponentSet = (
           placeholder={placeholder}
           label={label}
           onChange={onValueChange}
+          required={required ? required : false}
+          error={error}
+          errorText={errorText}
         />
       );
     default:
@@ -45,7 +52,7 @@ export const jsonToFormComponent = (
   let jsonConfigToRenderFormData = objectDeepCopy(jsonConfig);
   let { formElements } = jsonConfigToRenderFormData;
   let finalFormComponentSets = [];
-  for (formElement of formElements) {
+  for (let formElement of formElements) {
     finalFormComponentSets.push(
       formElementComponentSet(formElement, onValueChange, crmValues)
     );

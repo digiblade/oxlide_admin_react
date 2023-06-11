@@ -50,6 +50,17 @@
   color: var(--text-dark) !important;
 }
 
+.color-success {
+  color: var(--success)
+}
+
+.color-danger {
+  color: var(--danger)
+}
+
+.color-warning {
+  color: var(--warning)
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

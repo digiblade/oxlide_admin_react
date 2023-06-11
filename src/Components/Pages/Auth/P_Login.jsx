@@ -30,7 +30,7 @@ export default function P_Login() {
       ) {
         localStorage.setItem(
           process.env.REACT_APP_AUTH_TOKEN_STORAGE_KEY,
-          authResponse.authorization.token
+          JSON.stringify(authResponse)
         );
         navigate("/dashboard");
         setIsValidLogin(true);

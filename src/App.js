@@ -11,9 +11,14 @@ import {
 import user from "./Assets/Images/user.jpg";
 import { Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getUserDetails } from "./Utils/utils";
 export default function Drawer({ children, activePage }) {
   const [isDrawerOpen, setDrawerOpen] = React.useState(true);
   const navigate = useNavigate();
+  const getUserName = () => {
+    let { user } = getUserDetails();
+    return user.name;
+  };
   return (
     <div className="App">
       <div
@@ -36,7 +41,7 @@ export default function Drawer({ children, activePage }) {
 
           <div className="drawer-header">
             <Image src={user} roundedCircle width={50} height="50"></Image>
-            <div className="profile-name">Akash Chourasia (Super Admin)</div>
+            <div className="profile-name">{getUserName()}</div>
           </div>
           <hr />
           <div className="list-menu">

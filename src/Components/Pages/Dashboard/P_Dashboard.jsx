@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "./CSS/Dashboard.css";
+import O_Tables_Data_Mapping from "../../Organisms/Table Data Mapping/O_Tables_Data_Mapping";
 export default function P_Dashboard() {
   return (
     <div>
@@ -37,6 +38,11 @@ export default function P_Dashboard() {
                 <Card.Text className="kpi-value">Value: 100</Card.Text>
               </Card.Body>
             </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} lg={4} md={6}>
+            <O_Tables_Data_Mapping sourceLabel={"client-details"} />
           </Col>
         </Row>
       </Container>

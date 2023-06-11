@@ -7,12 +7,19 @@ const token = localStorage.getItem(
 const api = axiosWithAuth(token);
 
 export const httpPOST = async (url, payload) => {
-  let response = await api.post(url, payload);
-  if (response.status === 401 || response.status === 405) {
-    localStorage.removeItem(process.env.REACT_APP_AUTH_TOKEN_STORAGE_KEY);
-    window.location.href = "/";
+  try {
+    let response = await api.post(url, payload);
+    return { status: response.status, data: response.data };
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status === 401 || error.response.status === 405) {
+        localStorage.removeItem(process.env.REACT_APP_AUTH_TOKEN_STORAGE_KEY);
+        window.location.href = "/";
+      }
+      return { status: error.response.status, data: [] };
+    }
+    return { status: 500, data: [] };
   }
-  return { status: response.status, data: response.data };
 };
 export const httpGET = async (url) => {
   let response = await api.get(url);
