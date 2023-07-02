@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "./CSS/Dashboard.css";
-import O_Tables_Data_Mapping from "../../Organisms/Table Data Mapping/O_Tables_Data_Mapping";
 export default function P_Dashboard() {
   return (
     <div>
@@ -40,11 +39,46 @@ export default function P_Dashboard() {
             </Card>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col xs={12} lg={4} md={6}>
-            <O_Tables_Data_Mapping sourceLabel={"client-details"} />
+            <O_Form_Data_Mapping
+              sourceLabel={"client-details"}
+              header={"Enter Client Details"}
+              formConfig={{
+                formElements: [
+                  {
+                    formType: fieldTypes.TEXT_INPUT,
+                    subType: subTypes.TEXT,
+                    id: "clientName",
+                    defaultValue: "",
+                    helperText: "",
+                    placeholder: "Enter your name",
+                    label: "Client Name:",
+                    required: true,
+                  },
+                  {
+                    formType: fieldTypes.TEXT_INPUT,
+                    subType: subTypes.EMAIL,
+                    id: "clientEmail",
+                    defaultValue: "",
+                    helperText: "",
+                    placeholder: "Enter your email",
+                    label: "Client Email:",
+                  },
+                  {
+                    formType: fieldTypes.TEXT_INPUT,
+                    subType: subTypes.URL,
+                    id: "clientDomain",
+                    defaultValue: "",
+                    helperText: "",
+                    placeholder: "Enter client URL",
+                    label: "Client URL:",
+                  },
+                ],
+              }}
+            />
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </div>
   );

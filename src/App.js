@@ -3,21 +3,32 @@ import "./App.css";
 import {
   Menu,
   Dashboard as DashboardIcon,
-  BorderColor,
-  Category,
-  Sell,
   AddCircle,
 } from "@mui/icons-material";
 import user from "./Assets/Images/user.jpg";
 import { Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getUserDetails } from "./Utils/utils";
+import { httpPOST } from "./Utils/Api";
+import { useParams } from "react-router-dom";
 export default function Drawer({ children, activePage }) {
+  const { sourceLabel } = useParams();
   const [isDrawerOpen, setDrawerOpen] = React.useState(true);
+  const [pagesData, setPageData] = React.useState([]);
   const navigate = useNavigate();
   const getUserName = () => {
     let { user } = getUserDetails();
     return user.name;
+  };
+  React.useEffect(() => {
+    getPage();
+  }, []);
+  const getPage = async () => {
+    let payload = {
+      sourceLabel: "page-config",
+    };
+    let { data } = await httpPOST("/crm-data-get", payload);
+    setPageData(data);
   };
   return (
     <div className="App">
@@ -67,39 +78,22 @@ export default function Drawer({ children, activePage }) {
               <AddCircle />
               Page Editor
             </div>
-            <div
-              className={`list-item ${
-                activePage === "chart-editor" ? "active" : ""
-              }`}
-              onClick={() => {
-                navigate("/chart-editor");
-              }}
-            >
-              <BorderColor />
-              Chart Editor
-            </div>
-            <div
-              className={`list-item ${
-                activePage === "products" ? "active" : ""
-              }`}
-              onClick={() => {
-                navigate("/products");
-              }}
-            >
-              <Sell />
-              Product Details
-            </div>
-            <div
-              className={`list-item ${
-                activePage === "categories" ? "active" : ""
-              }`}
-              onClick={() => {
-                navigate("/categories");
-              }}
-            >
-              <Category />
-              Category
-            </div>
+            {pagesData
+              ? pagesData.map((page, index) => (
+                  <div
+                    key={`page_${index}`}
+                    className={`list-item ${
+                      sourceLabel === page.pageUrl ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      navigate(`/${page.pageUrl}`);
+                    }}
+                  >
+                    <AddCircle />
+                    {page.pageName}
+                  </div>
+                ))
+              : ""}
           </div>
         </aside>
         <main>

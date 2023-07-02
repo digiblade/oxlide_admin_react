@@ -1,14 +1,11 @@
 import axiosWithAuth from "./Api.helper";
-
-const token = localStorage.getItem(
-  process.env.REACT_APP_AUTH_TOKEN_STORAGE_KEY
-);
-
-const api = axiosWithAuth(token);
-
-export const httpPOST = async (url, payload) => {
+import axios from "axios";
+export const httpPOST = async (url, payload, addOnHeader) => {
   try {
-    let response = await api.post(url, payload);
+    const { baseURL, headers } = axiosWithAuth();
+    let response = await axios.post(baseURL + url, payload, {
+      headers: headers,
+    });
     return { status: response.status, data: response.data };
   } catch (error) {
     if (error.response) {
@@ -21,7 +18,8 @@ export const httpPOST = async (url, payload) => {
     return { status: 500, data: [] };
   }
 };
-export const httpGET = async (url) => {
-  let response = await api.get(url);
+export const httpGET = async (url, addOnHeader) => {
+  const { baseURL, headers } = axiosWithAuth();
+  let response = await axios.get(baseURL + url, { ...headers, ...addOnHeader });
   return { status: response.status, data: response.data };
 };

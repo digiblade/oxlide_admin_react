@@ -3,14 +3,24 @@ import { Card, Button } from "react-bootstrap";
 import { objectDeepCopy } from "../../../Utils/utils";
 import { jsonToFormComponent } from "./Helper/FormRenderer.helper";
 import { fieldMessages } from "../../../Const/message";
-export default function M_FormRenderer({ header, formBody, onSubmit }) {
-  const [formData, setFormData] = React.useState({});
+export default function M_FormRenderer({
+  header,
+  formBody,
+  onSubmit,
+  crmValues,
+  optionSets,
+}) {
+  const [formData, setFormData] = React.useState(crmValues ? crmValues : {});
   const [formStructure, setFormStructure] = React.useState(
     objectDeepCopy(formBody)
   );
   const handleValueChange = (event) => {
     let tempFormData = objectDeepCopy(formData);
-    tempFormData[event.target.id] = event.target.value;
+    if (event.target.value && event.target.value !== "") {
+      tempFormData[event.target.id] = event.target.value;
+    } else {
+      delete tempFormData[event.target.id];
+    }
     setFormData(tempFormData);
   };
   const checkValidations = () => {
@@ -45,14 +55,20 @@ export default function M_FormRenderer({ header, formBody, onSubmit }) {
   return (
     <div>
       <Card>
-        <Card.Header>{header}</Card.Header>
+        {header ? <Card.Header>{header}</Card.Header> : ""}
         <Card.Body>
-          {jsonToFormComponent(formStructure, handleValueChange, formData)}
+          {jsonToFormComponent(
+            formStructure,
+            handleValueChange,
+            formData,
+            optionSets
+          )}
         </Card.Body>
         <Card.Footer
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <Button disabled={true}>Back</Button>
+          {/* <Button disabled={true}>Back</Button> */}
+          <></>
           <Button onClick={handleFormSubmit}>Finish</Button>
         </Card.Footer>
       </Card>

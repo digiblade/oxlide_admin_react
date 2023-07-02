@@ -1,5 +1,6 @@
 export const fieldTypes = {
   TEXT_INPUT: "text_input",
+  OPTION_SET: "option_set",
 };
 export const subTypes = {
   TEXT: "text",

@@ -17,12 +17,18 @@ export default function A_TextInput({
   return (
     <div>
       <Form.Group className="mb-3" style={style} controlId={id}>
-        <Form.Label>
-          {label} {required ? "*" : ""}
-        </Form.Label>
+        {label ? (
+          <Form.Label>
+            {label} {required ? "*" : ""}
+          </Form.Label>
+        ) : (
+          ""
+        )}
         <Form.Control
           type={type}
-          placeholder={`${placeholder} ${required ? "*" : ""}`}
+          placeholder={
+            placeholder ? `${placeholder} ${required ? "*" : ""}` : ""
+          }
           value={value}
           onChange={onChange}
         />

@@ -1,10 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoutes from "./Routing/Protected_Routes";
 import P_Login from "./Components/Pages/Auth/P_Login";
 import P_Dashboard from "./Components/Pages/Dashboard/P_Dashboard";
 import Drawer from "./App";
 import P_PageEditor from "./Components/Pages/Page Editor/P_PageEditor";
+import P_CrudPage from "./Components/Pages/Product Page/P_CrudPage";
+import {
+  categoryPage,
+  productPage,
+  subcategoryPage,
+} from "./Configs/productPageConfig";
 
 export default function RoutingEngine() {
   return (
@@ -24,17 +30,6 @@ export default function RoutingEngine() {
             }
           ></Route>{" "}
           <Route
-            path="/client-editor"
-            exact
-            element={
-              <ProtectedRoutes>
-                <Drawer activePage={"page-editor"}>
-                  <P_PageEditor />
-                </Drawer>
-              </ProtectedRoutes>
-            }
-          ></Route>{" "}
-          <Route
             path="/page-editor"
             exact
             element={
@@ -46,23 +41,12 @@ export default function RoutingEngine() {
             }
           ></Route>{" "}
           <Route
-            path="/chart-editor"
+            path="/:sourceLabel"
             exact
             element={
               <ProtectedRoutes>
-                <Drawer activePage={"chart-editor"}>
-                  <P_PageEditor />
-                </Drawer>
-              </ProtectedRoutes>
-            }
-          ></Route>{" "}
-          <Route
-            path="/products"
-            exact
-            element={
-              <ProtectedRoutes>
-                <Drawer activePage={"products"}>
-                  <P_PageEditor />
+                <Drawer>
+                  <P_CrudPage {...productPage} pageLabel="Product Page" />
                 </Drawer>
               </ProtectedRoutes>
             }
@@ -73,7 +57,18 @@ export default function RoutingEngine() {
             element={
               <ProtectedRoutes>
                 <Drawer activePage={"categories"}>
-                  <P_PageEditor />
+                  <P_CrudPage {...categoryPage} pageLabel="Category" />
+                </Drawer>
+              </ProtectedRoutes>
+            }
+          ></Route>{" "}
+          <Route
+            path="/subcategories"
+            exact
+            element={
+              <ProtectedRoutes>
+                <Drawer activePage={"subcategories"}>
+                  <P_CrudPage {...subcategoryPage} pageLabel="Sub Category" />
                 </Drawer>
               </ProtectedRoutes>
             }

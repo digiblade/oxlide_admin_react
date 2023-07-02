@@ -1,6 +1,10 @@
-import axios from "axios";
+import { getValueThroughJSON } from "./utils";
 
-const axiosWithAuth = (token) => {
+const axiosWithAuth = () => {
+  const tokenDetails = localStorage.getItem(
+    process.env.REACT_APP_AUTH_TOKEN_STORAGE_KEY
+  );
+  let token = getValueThroughJSON(tokenDetails, ".authorization.token", "");
   let headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`, // Add the bearer token to the Authorization header
@@ -8,12 +12,10 @@ const axiosWithAuth = (token) => {
   if (token === null || token === undefined || token === "") {
     delete headers.Authorization;
   }
-  const instance = axios.create({
+  return {
     baseURL: process.env.REACT_APP_BASE_URL, // Your API base URL
     headers: headers,
-  });
-
-  return instance;
+  };
 };
 
 export default axiosWithAuth;
