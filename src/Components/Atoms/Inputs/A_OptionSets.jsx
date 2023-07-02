@@ -17,7 +17,7 @@ export default function A_OptionSets({
 }) {
   return (
     <div>
-      <Form.Group className="mb-3" style={style} controlId={id}>
+      <Form.Group className="mb-3" style={style} id={id}>
         {label ? (
           <Form.Label>
             {label} {required ? "*" : ""}

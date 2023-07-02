@@ -66,7 +66,7 @@ export default function P_Login() {
               ""
             )}
             <Form autoComplete="off">
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Group className="mb-3" id="formBasicEmail">
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -74,7 +74,7 @@ export default function P_Login() {
                   onChange={handleOnChange}
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Group className="mb-3" id="formBasicPassword">
                 <Form.Control
                   type="password"
                   placeholder="Enter password"
