@@ -44,3 +44,28 @@ export const getUserDetails = () => {
 
   return localData;
 };
+export const replacePlaceholders = (template, placeholders) => {
+  let placeholderKeys = template.match(/<([^>]+)>/g);
+  placeholderKeys = [...new Set(placeholderKeys)];
+  placeholderKeys = placeholderKeys.map((match) => match.slice(1, -1));
+  for (let key of placeholderKeys) {
+    if (placeholders.hasOwnProperty(key)) {
+      let placeholder = `<${key}>`;
+      let value =
+        typeof placeholders[key] === "string"
+          ? `'${placeholders[key]}'`
+          : placeholders[key];
+      template = template.replace(new RegExp(placeholder, "g"), value);
+    }
+  }
+  return template;
+};
+export const executeJS = (jsString) => {
+  try {
+    let func = Function(jsString);
+    return func();
+  } catch (error) {
+    logSystemData(error);
+    return null;
+  }
+};

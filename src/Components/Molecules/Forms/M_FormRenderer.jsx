@@ -3,12 +3,15 @@ import { Card, Button } from "react-bootstrap";
 import { objectDeepCopy } from "../../../Utils/utils";
 import { jsonToFormComponent } from "./Helper/FormRenderer.helper";
 import { fieldMessages } from "../../../Const/message";
+// import { useDispatch } from "react-redux";
 export default function M_FormRenderer({
   header,
   formBody,
-  onSubmit,
+  onSubmit = () => {},
   crmValues,
   optionSets,
+  showSubmit,
+  onFormChange = () => {},
 }) {
   const [formData, setFormData] = React.useState(crmValues ? crmValues : {});
   const [formStructure, setFormStructure] = React.useState(
@@ -22,6 +25,7 @@ export default function M_FormRenderer({
       delete tempFormData[event.target.id];
     }
     setFormData(tempFormData);
+    onFormChange && onFormChange(tempFormData);
   };
   const checkValidations = () => {
     let isValid = true;
@@ -64,13 +68,16 @@ export default function M_FormRenderer({
             optionSets
           )}
         </Card.Body>
-        <Card.Footer
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          {/* <Button disabled={true}>Back</Button> */}
-          <></>
-          <Button onClick={handleFormSubmit}>Finish</Button>
-        </Card.Footer>
+        {showSubmit !== false ? (
+          <Card.Footer
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            {/* <Button disabled={true}>Back</Button> */}
+            <Button onClick={handleFormSubmit}>Finish</Button>
+          </Card.Footer>
+        ) : (
+          ""
+        )}
       </Card>
     </div>
   );

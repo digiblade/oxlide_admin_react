@@ -11,6 +11,8 @@ import {
   productPage,
   subcategoryPage,
 } from "./Configs/productPageConfig";
+import P_PageEditorDetails from "./Components/Pages/Page Editor/P_PageEditorDetails";
+import P_TemplateEditor from "./Components/Pages/Page Editor/P_TemplateEditor";
 
 export default function RoutingEngine() {
   return (
@@ -41,6 +43,17 @@ export default function RoutingEngine() {
             }
           ></Route>{" "}
           <Route
+            path="/page-editor/:pageId"
+            exact
+            element={
+              <ProtectedRoutes>
+                <Drawer activePage={"page-editor"}>
+                  <P_PageEditorDetails />
+                </Drawer>
+              </ProtectedRoutes>
+            }
+          ></Route>{" "}
+          <Route
             path="/:sourceLabel"
             exact
             element={
@@ -52,23 +65,12 @@ export default function RoutingEngine() {
             }
           ></Route>{" "}
           <Route
-            path="/categories"
+            path="/template-editor/:pageId"
             exact
             element={
               <ProtectedRoutes>
-                <Drawer activePage={"categories"}>
-                  <P_CrudPage {...categoryPage} pageLabel="Category" />
-                </Drawer>
-              </ProtectedRoutes>
-            }
-          ></Route>{" "}
-          <Route
-            path="/subcategories"
-            exact
-            element={
-              <ProtectedRoutes>
-                <Drawer activePage={"subcategories"}>
-                  <P_CrudPage {...subcategoryPage} pageLabel="Sub Category" />
+                <Drawer activePage={"page-editor"}>
+                  <P_TemplateEditor />
                 </Drawer>
               </ProtectedRoutes>
             }

@@ -1,8 +1,29 @@
 import React from "react";
 import A_TextInput from "../../../Atoms/Inputs/A_TextInput";
-import { objectDeepCopy } from "../../../../Utils/utils";
+import {
+  executeJS,
+  objectDeepCopy,
+  replacePlaceholders,
+} from "../../../../Utils/utils";
 import { fieldTypes } from "../../../../Const/types";
 import A_OptionSets from "../../../Atoms/Inputs/A_OptionSets";
+const handleShowHide = (item, crmValues) => {
+  let { show } = item;
+  if (show === undefined || show === null) {
+    return true;
+  } else if (typeof show === "boolean") {
+    return show;
+  } else if (typeof show === "object") {
+    let { condition } = show;
+    condition = replacePlaceholders(condition, crmValues);
+    if (condition !== null) {
+      let exe = executeJS(`return ${condition}`);
+      return exe;
+    } else {
+      return false;
+    }
+  }
+};
 const formElementComponentSet = (
   fieldDetails,
   onValueChange,
@@ -54,6 +75,7 @@ const formElementComponentSet = (
               : []
           }
           id={id}
+          value={value}
           defaultValue={defaultValue}
           placeholder={placeholder}
           helperText={helperText}
@@ -79,11 +101,21 @@ export const jsonToFormComponent = (
   let jsonConfigToRenderFormData = objectDeepCopy(jsonConfig);
   let { formElements } = jsonConfigToRenderFormData;
   let finalFormComponentSets = [];
-  formElements = formElements.filter((item) => item.hideInForm !== false);
-  for (let formElement of formElements) {
-    finalFormComponentSets.push(
-      formElementComponentSet(formElement, onValueChange, crmValues, optionSets)
+  if (formElements) {
+    formElements = formElements.filter((item) =>
+      handleShowHide(item, crmValues)
     );
+    for (let formElement of formElements) {
+      finalFormComponentSets.push(
+        formElementComponentSet(
+          formElement,
+          onValueChange,
+          crmValues,
+          optionSets
+        )
+      );
+    }
   }
+
   return finalFormComponentSets;
 };

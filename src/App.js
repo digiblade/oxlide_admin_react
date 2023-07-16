@@ -32,22 +32,10 @@ export default function Drawer({ children, activePage }) {
   };
   return (
     <div className="App">
-      <div
-        className={`App-header ${
-          isDrawerOpen ? "show-dashboard" : "hide-dashboard"
-        }`}
-      >
-        <aside style={{ display: `${isDrawerOpen ? "block" : "none"}` }}>
+      <div className={`App-header ${isDrawerOpen ? "show" : "hide"}-dashboard`}>
+        <aside className={`drawer-position-${isDrawerOpen ? "open" : "close"}`}>
           <div className="close-icon-with-logo">
             <div className="">Logo</div>
-            <div
-              className="close-button"
-              onClick={() => {
-                setDrawerOpen(false);
-              }}
-            >
-              X
-            </div>
           </div>
 
           <div className="drawer-header">
@@ -100,7 +88,7 @@ export default function Drawer({ children, activePage }) {
           <nav>
             <Menu
               onClick={() => {
-                setDrawerOpen(true);
+                setDrawerOpen(!isDrawerOpen);
               }}
             ></Menu>
           </nav>

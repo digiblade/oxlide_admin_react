@@ -5,7 +5,7 @@ export default function O_Form_Data_Mapping({
   sourceLabel,
   formConfig,
   header,
-  onSubmit,
+  onSubmit = () => {},
   crmValues,
   optionSets,
 }) {

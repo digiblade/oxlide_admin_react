@@ -10,6 +10,7 @@ export default function A_OptionSets({
   helperText,
   errorText,
   error,
+  value,
   placeholder,
   optionSetLabel,
   optionSetValue,
@@ -25,23 +26,32 @@ export default function A_OptionSets({
         ) : (
           ""
         )}
-        <Form.Select aria-label="" onChange={onChange}>
+        <Form.Select
+          aria-label=""
+          id={id}
+          onChange={onChange}
+          defaultValue={value}
+        >
           {placeholder ? <option value={""}>{placeholder}</option> : ""}
           {Array.isArray(optionSet) &&
-            optionSet.map((item) => (
-              <option
-                key={item.id}
-                value={
-                  item[optionSetValue]
-                    ? item[optionSetValue]
-                    : item["id"]
-                    ? item["id"]
-                    : ""
-                }
-              >
-                {item[optionSetLabel] || ""}
-              </option>
-            ))}
+            optionSet.map((item) => {
+              let tempValue =
+                item[optionSetValue] !== undefined
+                  ? item[optionSetValue]
+                  : item["id"]
+                  ? item["id"]
+                  : "";
+              return (
+                <option
+                  key={item.id}
+                  id={item.id}
+                  selected={value === tempValue}
+                  value={tempValue}
+                >
+                  {item[optionSetLabel] || ""}
+                </option>
+              );
+            })}
         </Form.Select>
         <Form.Text className="text-muted">{helperText}</Form.Text>
         {error ? (

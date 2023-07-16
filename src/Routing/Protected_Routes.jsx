@@ -16,11 +16,9 @@ export default function ProtectedRoutes({ children }) {
     if (userDetails && userDetails.authorization) {
       let payload = {
         label: process.env.REACT_APP_CLIENT_LOG_TABLE,
-        properties: [
-          {
-            log: "Token validation check",
-          },
-        ],
+        properties: {
+          log: "Token validation check",
+        },
       };
       let response = await httpPOST("/crm-data-insert", payload);
       if (response) {

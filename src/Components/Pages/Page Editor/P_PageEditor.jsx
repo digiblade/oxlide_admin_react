@@ -5,11 +5,13 @@ import O_Form_Data_Mapping from "../../Organisms/Table Data Mapping/O_Form_Data_
 import { fieldTypes, subTypes } from "../../../Const/types";
 import { httpPOST } from "../../../Utils/Api";
 import { Edit, Delete } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 export default function P_PageEditor() {
   const [open, setIsOpen] = React.useState(false);
   const [pageData, setPageData] = React.useState([]);
   const [crmValues, setCrmValues] = React.useState({});
   const [deleteDisable, setDeleteDisable] = React.useState([]);
+  const navigate = useNavigate();
   React.useEffect(() => {
     getPage();
   }, []);
@@ -70,8 +72,7 @@ export default function P_PageEditor() {
                       <Button className="m-2">
                         <Edit
                           onClick={() => {
-                            setIsOpen(true);
-                            setCrmValues(item);
+                            navigate(`/page-editor/${item.id}`);
                           }}
                         ></Edit>
                       </Button>
